@@ -1,44 +1,38 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+  Actions,
+  Router,
+  Scene,
+  ActionConst,
+} from 'react-native-router-flux';
+import { Provider } from 'react-redux';
+import configureStore from './store';
+
+import InitScreen from './components/InitScreen';
+import Login from './components/Login';
+
+const scenes = Actions.create(
+  <Scene key="root" hideNavBar >
+    <Scene
+      key="initScreen"
+      component={InitScreen}
+    />
+    <Scene
+      initial
+      key="login"
+      component={Login}
+    />
+  </Scene>,
+);
+
+const store = configureStore();
 
 export default class feedapp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <Router scenes={scenes} />
+      </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});

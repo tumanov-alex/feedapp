@@ -4,12 +4,20 @@
   "private": true,
   "scripts": {
     "start": "react-native run-ios --simulator=\"iPhone 5s\"",
+    "start6": "react-native run-ios --simulator=\"iPhone 6s\"",
     "postinstall": "rndebugger-open",
     "lint": "eslint ./src --ext .js --ext .jsx"
   },
   "dependencies": {
     "react": "16.0.0-alpha.12",
-    "react-native": "0.45.1"
+    "react-native": "0.45.1",
+    "react-native-router-flux": "^3.41.0",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1",
+    "redux-actions": "^2.2.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.15.4"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
