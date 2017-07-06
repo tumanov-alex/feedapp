@@ -33,6 +33,8 @@ local.properties
 # node.js
 #
 node_modules/
+react-native-packager-cache-d6975b8c89cf8c4e7de95c0cb0222270d9e3f4e0/
+haste-map-react-native-packager-1-16730c033894441f397dde4c746b826c
 npm-debug.log
 yarn-error.log
 
