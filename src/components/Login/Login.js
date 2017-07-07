@@ -1,38 +1,50 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TextInput,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import { connect } from 'react-redux';
 import colors from '../../constants/colors';
+import { loginRequest } from '../../actions/user';
 
 const { width, height } = Dimensions.get('window');
 
-export default class Login extends Component {
-  state = { // eslint-disable-line
-    login: '',
+const mapDispatchToProps = dispatch => ({
+  loginRequest: data =>
+    dispatch(loginRequest(data)),
+});
+
+class Login extends Component {
+  state = {
+    username: '',
     pass: '',
   };
 
   render() {
+    const {
+      loginRequest,
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Feed</Text>
 
         <TextInput
           style={styles.input}
-          onChangeText={login => this.setState({ login })}
-          value={this.state.login}
+          onChangeText={username => this.setState({ username })}
+          value={this.state.username}
           placeholder='username'
           autoCapitalize='none'
           autoCorrect={false}
         />
         <View style={styles.hr} />
         <TextInput
-          style={styles.input}
+          style={[styles.input, styles.marginBottom10]}
           onChangeText={pass => this.setState({ pass })}
           value={this.state.pass}
           placeholder='password'
@@ -40,18 +52,25 @@ export default class Login extends Component {
           autoCorrect={false}
         />
 
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           style={styles.btn}
-          onPress={txt => console.log(this.state)}
+          onPress={() => loginRequest(this.state)}
         >
-          <Text style={styles.btnTxt}>Log in</Text>
-        </TouchableHighlight>
+          <View style={styles.btnTxtCont}>
+            <Text style={styles.btnTxt}>Log in</Text>
+          </View>
+        </TouchableWithoutFeedback>
 
         <Text style={styles.footer}>Tumanov inc. ©</Text>
       </View>
     );
   }
 }
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  loginRequest: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -60,6 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: width * 0.15,
+    backgroundColor: colors.gray95,
   },
   header: {
     fontSize: 50,
@@ -71,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     position: 'absolute',
     bottom: 10,
+    color: colors.gray35,
   },
   hr: {
     width: '100%',
@@ -79,16 +100,21 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 35,
-    marginBottom: 10,
     color: colors.gray35,
+  },
+  marginBottom10: {
+    marginBottom: 10,
   },
   btn: {
     height: 40,
     width: '100%',
     paddingHorizontal: 10,
   },
+  btnTxtCont: {
+    width: '100%',
+    alignItems: 'flex-end',
+  },
   btnTxt: {
-    textAlign: 'right',
     color: colors.gray10,
   },
 });

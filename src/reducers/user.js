@@ -1,14 +1,22 @@
-import user from '../actions/user';
+import actionsConst from '../constants/actions';
 
 const initState = {
-  category: null,
+  isLoggedIn: false,
+  reqErr: null,
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case user.INIT:
+    case actionsConst.SET_AUTH:
       return {
         ...state,
+        isLoggedIn: true,
+      };
+    case actionsConst.REQUEST_ERROR:
+      console.log('req err')
+      return {
+        ...state,
+        reqErr: 'suka',
       };
     default:
       return state;

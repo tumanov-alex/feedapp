@@ -19,6 +19,7 @@ export default {
 
   // gray
   gray: 'gray',
+  gray95: '#f2f2f2',
   gray89: '#E5E3E5',
   gray35: '#5d565d',
   gray10: '#1b181b',

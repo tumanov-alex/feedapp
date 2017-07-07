@@ -14,7 +14,7 @@ export default function () {
     ),
   );
 
-  // store.runSaga = sagaMiddleware.run;
+  store.runSaga = sagaMiddleware.run;
 
   return store;
 }

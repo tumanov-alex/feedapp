@@ -1,10 +1,5 @@
-import { createAction } from 'redux-actions';
+/* eslint-disable import/prefer-default-export */
+import actionsConst from '../constants/actions';
 
-const user = {
-  INIT: 'INIT',
-};
-
-export const init = createAction(
-  user.INIT, category => ({ category }));
-
-export default user;
+export const loginRequest = data =>
+  ({ type: actionsConst.LOGIN_REQUEST, data });
