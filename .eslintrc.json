@@ -1,8 +1,10 @@
 {
-    "extends": "airbnb",
-    "rules": {
-        "no-use-before-define": "off",
-        "react/jsx-filename-extension": "off",
-        "react/prefer-stateless-function": "off"
-    }
+  "extends": "airbnb",
+  "rules": {
+    "no-use-before-define": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prefer-stateless-function": "off",
+    "no-plusplus": "off",
+    "wrap-iife": "off"
+  }
 }

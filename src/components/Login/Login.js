@@ -14,11 +14,6 @@ import { loginRequest } from '../../actions/user';
 
 const { width, height } = Dimensions.get('window');
 
-const mapDispatchToProps = dispatch => ({
-  loginRequest: data =>
-    dispatch(loginRequest(data)),
-});
-
 class Login extends Component {
   state = {
     username: '',
@@ -66,11 +61,15 @@ class Login extends Component {
     );
   }
 }
-export default connect(null, mapDispatchToProps)(Login);
-
 Login.propTypes = {
   loginRequest: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => ({
+  loginRequest: data =>
+    dispatch(loginRequest(data)),
+});
+export default connect(null, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   container: {
