@@ -12,7 +12,7 @@ import colors from '../../constants/colors';
 
 const { width, height } = Dimensions.get('window');
 
-export default class PhotoItem extends PureComponent {
+export default class MovieItem extends PureComponent {
   render() {
     const {
       title,
@@ -27,10 +27,15 @@ export default class PhotoItem extends PureComponent {
     );
   }
 }
-PhotoItem.propTypes = {
+MovieItem.propTypes = {
   title: PropTypes.string.isRequired,
   overview: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
+};
+MovieItem.defaultProps = {
+  title: null,
+  overview: null,
+  poster: null,
 };
 
 const styles = StyleSheet.create({
