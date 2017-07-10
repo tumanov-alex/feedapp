@@ -5,7 +5,7 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TextInput,
+  Image,
   TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../../constants/colors';
@@ -22,7 +22,14 @@ export default class MovieItem extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <Text>{title}</Text>
+        <Image
+          source={{ uri: `https://image.tmdb.org/t/p/w300${poster}` }}
+          style={styles.poster}
+        />
+        <View style={styles.info}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.overview}>{overview}</Text>
+        </View>
       </View>
     );
   }
@@ -42,5 +49,19 @@ const styles = StyleSheet.create({
   container: {
     width,
     height: height * 0.33,
+    flexDirection: 'row',
+  },
+  poster: {
+    width: 50,
+    height: 50,
+  },
+  title: {
+    fontSize: 20,
+  },
+  overview: {
+    width: '100%',
+  },
+  info: {
+    flex: 0.3,
   },
 });

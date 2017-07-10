@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  ActivityIndicator,
-  StyleSheet,
   FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
 import MovieItem from '../../components/MovieItem';
+import SpinnerCenter from '../../components/SpinnerCenter';
 import { getMovies } from '../../actions/feed';
 import getNewKey from '../../helpers/getNewKey';
 
@@ -35,7 +34,7 @@ class Feed extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View>
         {movies.length
           ? <FlatList
               data={movies}
@@ -49,7 +48,7 @@ class Feed extends Component {
               onEndThreshold={100}
               keyExtractor={() => getNewKey()}
           />
-          : <ActivityIndicator />}
+          : <SpinnerCenter />}
       </View>
     );
   }
@@ -74,11 +73,3 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getMovies(page)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-  },
-});

@@ -17,10 +17,10 @@ function* getMovies({ moviesPage }) {
 }
 
 function* handleMovieRequest ({ moviesPage }) {
-  const request =  yield call(getMovies, { moviesPage });
+  const request = yield call(getMovies, { moviesPage });
   yield put({ type: actionsConst.SAVE_MOVIES, movies: request.data.results });
 }
 
 export default function* watchGetMovies() {
-  yield takeEvery(actionsConst.GET_MOVIES, handleMovieRequest)
+  yield takeEvery(actionsConst.GET_MOVIES, handleMovieRequest);
 }
