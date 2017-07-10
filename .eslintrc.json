@@ -5,6 +5,7 @@
     "react/jsx-filename-extension": "off",
     "react/prefer-stateless-function": "off",
     "no-plusplus": "off",
-    "wrap-iife": "off"
+    "wrap-iife": "off",
+    "no-unused-expressions": "off"
   }
 }

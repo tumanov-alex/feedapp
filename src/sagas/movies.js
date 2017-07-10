@@ -1,7 +1,7 @@
 import {
   put,
   call,
-  takeEvery
+  takeEvery,
 } from 'redux-saga/effects';
 import axios from 'axios';
 import actionsConst from '../constants/actions';
@@ -16,7 +16,7 @@ function* getMovies({ moviesPage }) {
   }
 }
 
-function* handleMovieRequest ({ moviesPage }) {
+function* handleMovieRequest({ moviesPage }) {
   const request = yield call(getMovies, { moviesPage });
   yield put({ type: actionsConst.SAVE_MOVIES, movies: request.data.results });
 }

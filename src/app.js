@@ -11,7 +11,7 @@ import rootSaga from './sagas/rootSaga';
 
 import InitScreen from './components/InitScreen';
 import Login from './components/Login';
-import Feed from './containers/Feed';
+import FeedContainer from './components/FeedContainer';
 
 const scenes = Actions.create(
   <Scene key="root" hideNavBar >
@@ -26,7 +26,7 @@ const scenes = Actions.create(
     <Scene
       initial
       key="feed"
-      component={Feed}
+      component={FeedContainer}
     />
   </Scene>,
 );

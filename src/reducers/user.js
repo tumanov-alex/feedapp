@@ -13,10 +13,9 @@ export default (state = initState, action) => {
         isLoggedIn: true,
       };
     case actionsConst.REQUEST_ERROR:
-      console.log('req err')
       return {
         ...state,
-        reqErr: 'suka',
+        reqErr: 'opps, req err',
       };
     default:
       return state;

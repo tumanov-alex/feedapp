@@ -3,16 +3,23 @@ import actionsConst from '../constants/actions';
 const initState = {
   movies: [],
   moviesPage: 1,
+  isMoviesLoading: false,
   requestErr: null,
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
+    case actionsConst.GET_MOVIES:
+      return {
+        ...state,
+        isMoviesLoading: true,
+      };
     case actionsConst.SAVE_MOVIES:
       return {
         ...state,
         movies: [...state.movies, ...action.movies],
         moviesPage: state.moviesPage + 1,
+        isMoviesLoading: false,
       };
     case actionsConst.MOVIE_REQUEST_ERROR:
       return {

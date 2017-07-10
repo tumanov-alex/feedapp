@@ -16,6 +16,7 @@ export default {
 
   // blue
   powderblue: 'powderblue',
+  blue33: '#107896',
 
   // gray
   gray: 'gray',

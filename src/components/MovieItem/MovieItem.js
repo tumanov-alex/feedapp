@@ -6,11 +6,10 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../../constants/colors';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class MovieItem extends PureComponent {
   render() {
@@ -28,7 +27,12 @@ export default class MovieItem extends PureComponent {
         />
         <View style={styles.info}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.overview}>{overview}</Text>
+          <Text
+            style={styles.overview}
+            numberOfLines={4}
+          >
+            {overview}
+          </Text>
         </View>
       </View>
     );
@@ -48,20 +52,26 @@ MovieItem.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     width,
-    height: height * 0.33,
     flexDirection: 'row',
+    marginVertical: 13,
   },
   poster: {
-    width: 50,
-    height: 50,
+    width: 6 * 15,
+    height: 9 * 15,
+    marginHorizontal: 8,
   },
   title: {
     fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: colors.blue33,
   },
   overview: {
     width: '100%',
+    fontSize: 13,
   },
   info: {
-    flex: 0.3,
+    flex: 1,
+    paddingRight: 15,
   },
 });

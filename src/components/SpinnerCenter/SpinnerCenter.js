@@ -8,7 +8,7 @@ import {
 const { height } = Dimensions.get('window');
 
 export default class SpinnerCenter extends PureComponent {
-  render () {
+  render() {
     return <ActivityIndicator style={styles.spinner} />;
   }
 }

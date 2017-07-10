@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -29,6 +30,7 @@ class Feed extends Component {
       feed: {
         moviesPage,
         movies,
+        isMoviesLoading,
       },
       getMovies,
     } = this.props;
@@ -37,16 +39,16 @@ class Feed extends Component {
       <View>
         {movies.length
           ? <FlatList
-              data={movies}
-              renderItem={data => (
-                <MovieItem
-                  title={data.item.title}
-                  overview={data.item.overview}
-                  poster={data.item.poster_path}
-                />)}
-              onEndReached={() => getMovies(moviesPage)}
-              onEndThreshold={100}
-              keyExtractor={() => getNewKey()}
+            data={movies}
+            renderItem={data => (
+              <MovieItem
+                title={data.item.title}
+                overview={data.item.overview}
+                poster={data.item.poster_path}
+              />)}
+            onEndReached={() => !isMoviesLoading && getMovies(moviesPage)}
+            onEndThreshold={100}
+            keyExtractor={() => getNewKey()}
           />
           : <SpinnerCenter />}
       </View>
