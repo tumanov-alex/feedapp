@@ -1,20 +1,23 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
+  KeyboardAvoidingView,
   Text,
   StyleSheet,
   Dimensions,
   TextInput,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import colors from '../../constants/colors';
 import { loginRequest } from '../../actions/user';
 
 const { width, height } = Dimensions.get('window');
+const isIOS = Platform.OS === 'ios';
 
-class Login extends Component {
+class Login extends PureComponent {
   state = {
     username: '',
     pass: '',
@@ -26,7 +29,7 @@ class Login extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.header}>Feed</Text>
 
         <TextInput
@@ -37,7 +40,9 @@ class Login extends Component {
           autoCapitalize='none'
           autoCorrect={false}
         />
-        <View style={styles.hr} />
+
+        {isIOS && <View style={styles.hr} />}
+
         <TextInput
           style={[styles.input, styles.marginBottom10]}
           onChangeText={pass => this.setState({ pass })}
@@ -57,7 +62,7 @@ class Login extends Component {
         </TouchableWithoutFeedback>
 
         <Text style={styles.footer}>Tumanov inc. ©</Text>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -65,12 +70,11 @@ Login.propTypes = {
   loginRequest: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   loginRequest: data =>
     dispatch(loginRequest(data)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +103,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
   },
   input: {
+    width: '100%',
     height: 35,
     color: colors.gray35,
   },
