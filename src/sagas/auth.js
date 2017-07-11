@@ -2,8 +2,10 @@ import {
   put,
   call,
   race,
-  take,
+  takeEvery,
 } from 'redux-saga/effects';
+import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { login } from '../auth/functionality';
 import actionsConst from '../constants/actions';
 
@@ -11,21 +13,32 @@ function* authorize({ username, pass }) {
   try {
     return yield call(login, username, pass);
   } catch (err) {
-    return yield put({ type: actionsConst.REQUEST_ERROR, err: err.message });
+    console.error(err.message);
   }
 }
 
-export default function* watchAuthorize() {
-  const request = yield take(actionsConst.LOGIN_REQUEST);
-  const { username, pass } = request.data;
-
+function* handleAuthorizeRequest({ data: { username, pass } }) {
   const winner = yield race({
     auth: call(authorize, { username, pass }),
-    logout: take(actionsConst.LOGOUT),
+    logout: takeEvery(actionsConst.LOGOUT, logout),
   });
 
   if (winner.auth) {
     yield put({ type: actionsConst.SET_AUTH, isLoggedIn: true });
-    // todo: go to feed
+    Actions.feed();
+  } else if (!winner.logout) {
+    Alert.alert('Opps!', 'Invalid email or password');
   }
+}
+
+export function* watchAuthorize() {
+  yield takeEvery(actionsConst.LOGIN_REQUEST, handleAuthorizeRequest);
+}
+
+function* logout() {
+  yield put({ type: actionsConst.SET_AUTH, isLoggedIn: false });
+}
+
+export function* logoutFlow() {
+  yield takeEvery(actionsConst.LOGOUT, logout);
 }

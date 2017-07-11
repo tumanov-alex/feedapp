@@ -25,6 +25,10 @@ class Feed extends Component {
     !movies.length && getMovies(moviesPage);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.feed.movies.length > this.props.feed.movies.length;
+  }
+
   render() {
     const {
       feed: {
@@ -46,7 +50,7 @@ class Feed extends Component {
                 overview={data.item.overview}
                 poster={data.item.poster_path}
               />)}
-            onEndReached={() => !isMoviesLoading && getMovies(moviesPage)}
+            onEndReached={() => !isMoviesLoading && getMovies(moviesPage, movies)}
             onEndThreshold={100}
             keyExtractor={() => getNewKey()}
           />
@@ -71,7 +75,7 @@ Feed.propTypes = {
 
 const mapStateToProps = state => ({ feed: state.feed });
 const mapDispatchToProps = dispatch => ({
-  getMovies: page =>
-    dispatch(getMovies(page)),
+  getMovies: (page, movies) =>
+    dispatch(getMovies(page, movies)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

@@ -4,7 +4,6 @@ const initState = {
   movies: [],
   moviesPage: 1,
   isMoviesLoading: false,
-  requestErr: null,
 };
 
 export default (state = initState, action) => {
@@ -18,13 +17,8 @@ export default (state = initState, action) => {
       return {
         ...state,
         movies: [...state.movies, ...action.movies],
-        moviesPage: state.moviesPage + 1,
+        moviesPage: (action.moviesPage || state.moviesPage) + 1,
         isMoviesLoading: false,
-      };
-    case actionsConst.MOVIE_REQUEST_ERROR:
-      return {
-        ...state,
-        requestErr: action.err,
       };
     default:
       return state;

@@ -65,11 +65,12 @@ Login.propTypes = {
   loginRequest: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   loginRequest: data =>
     dispatch(loginRequest(data)),
 });
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   container: {

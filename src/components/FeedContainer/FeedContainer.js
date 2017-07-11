@@ -4,11 +4,15 @@ import {
   StyleSheet,
 } from 'react-native';
 import Feed from '../../containers/Feed';
+import Logout from '../Logout';
+import colors from '../../constants/colors';
 
 export default class FeedContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Logout style={styles.logout} />
+
         <Feed />
       </View>
     );
@@ -17,6 +21,10 @@ export default class FeedContainer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
+    paddingTop: 30,
+    backgroundColor: colors.gray95,
+  },
+  logout: {
+    marginBottom: 20,
   },
 });
