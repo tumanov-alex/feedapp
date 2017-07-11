@@ -6,6 +6,7 @@
     "react/prefer-stateless-function": "off",
     "no-plusplus": "off",
     "wrap-iife": "off",
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "no-underscore-dangle": "off"
   }
 }

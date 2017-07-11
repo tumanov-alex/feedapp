@@ -13,5 +13,6 @@ export async function getCachedMovies() {
     return await AsyncStorage.getItem('@moviesStore:movies');
   } catch (err) {
     console.error(err.message);
+    return null;
   }
 }

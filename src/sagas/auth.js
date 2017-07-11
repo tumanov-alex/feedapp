@@ -14,6 +14,7 @@ function* authorize({ username, pass }) {
     return yield call(login, username, pass);
   } catch (err) {
     console.error(err.message);
+    return null;
   }
 }
 

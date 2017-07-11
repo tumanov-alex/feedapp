@@ -20,22 +20,24 @@ function* getMoviesFromAPI(moviesPage) {
     return request;
   } catch (err) {
     console.error(err.message);
+    return null;
   }
 }
 
 function* getMovies(moviesPage) {
+  let _moviesPage;
   const cachedMovies = yield getCachedMovies();
 
   if (cachedMovies && moviesPage === 1) {
     const movies = JSON.parse(cachedMovies);
-    moviesPage = movies.length / moviesFromOnePage;
+    _moviesPage = movies.length / moviesFromOnePage;
 
-    return { movies, moviesPage };
+    return { movies, moviesPage: _moviesPage };
   }
-  return yield call(getMoviesFromAPI, moviesPage);
+  return yield call(getMoviesFromAPI, _moviesPage);
 }
 
-function* handleMovieRequest({ data: { moviesPage, availableMovies }}) {
+function* handleMovieRequest({ data: { moviesPage, availableMovies } }) {
   availableMoviesTmp = availableMovies || [];
 
   const result = yield call(getMovies, moviesPage);
