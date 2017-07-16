@@ -14,10 +14,27 @@ let availableMoviesTmp;
 function* getMoviesFromAPI(moviesPage) {
   try {
     const request = yield call(axios.get, `${apiLink}&page=${moviesPage}`);
+    const availableMoviesLength = availableMoviesTmp.length - 1;
+    const requestResultsLength = request.data.results.length - 1;
+    console.log(availableMoviesTmp)
 
-    yield cacheMovies([...availableMoviesTmp, ...request.data.results]);
+    if (availableMoviesLength > 0) {
+      if (availableMoviesTmp[availableMoviesLength - 19] !== request.data.results[requestResultsLength - 19]) {
+        yield cacheMovies([...availableMoviesTmp, ...request.data.results ]);
 
-    return request;
+        return request;
+      }
+    } else {
+      yield cacheMovies([ ...request.data.results ]);
+
+      return request;
+    }
+
+    return {
+      data: {
+        results: availableMoviesTmp,
+      },
+    };
   } catch (err) {
     console.error(err.message);
     return null;
@@ -25,16 +42,16 @@ function* getMoviesFromAPI(moviesPage) {
 }
 
 function* getMovies(moviesPage) {
-  let _moviesPage;
   const cachedMovies = yield getCachedMovies();
 
   if (cachedMovies && moviesPage === 1) {
     const movies = JSON.parse(cachedMovies);
-    _moviesPage = movies.length / moviesFromOnePage;
+    const cachedMoviesPage = movies.length / moviesFromOnePage;
 
-    return { movies, moviesPage: _moviesPage };
+    return { movies, moviesPage: cachedMoviesPage };
   }
-  return yield call(getMoviesFromAPI, _moviesPage || moviesPage);
+
+  return yield call(getMoviesFromAPI, moviesPage);
 }
 
 function* handleMovieRequest({ data: { moviesPage, availableMovies } }) {
