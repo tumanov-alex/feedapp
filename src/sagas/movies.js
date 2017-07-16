@@ -34,7 +34,7 @@ function* getMovies(moviesPage) {
 
     return { movies, moviesPage: _moviesPage };
   }
-  return yield call(getMoviesFromAPI, _moviesPage);
+  return yield call(getMoviesFromAPI, _moviesPage || moviesPage);
 }
 
 function* handleMovieRequest({ data: { moviesPage, availableMovies } }) {
