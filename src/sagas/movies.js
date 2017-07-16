@@ -14,27 +14,25 @@ let availableMoviesTmp;
 function* getMoviesFromAPI(moviesPage) {
   try {
     const request = yield call(axios.get, `${apiLink}&page=${moviesPage}`);
+    const receivedMovies = request.data.results;
     const availableMoviesLength = availableMoviesTmp.length - 1;
-    const requestResultsLength = request.data.results.length - 1;
-    console.log(availableMoviesTmp)
+    const requestResultsLength = receivedMovies.length - 1;
+    const firstMoviePreviousPage = availableMoviesTmp[availableMoviesLength - 19];
+    const firstMovieLastPage = receivedMovies[requestResultsLength - 19];
 
     if (availableMoviesLength > 0) {
-      if (availableMoviesTmp[availableMoviesLength - 19] !== request.data.results[requestResultsLength - 19]) {
-        yield cacheMovies([...availableMoviesTmp, ...request.data.results ]);
+      if (firstMoviePreviousPage !== firstMovieLastPage) {
+        yield cacheMovies([...availableMoviesTmp, ...receivedMovies]);
 
-        return request;
+        return { movies: receivedMovies };
       }
     } else {
-      yield cacheMovies([ ...request.data.results ]);
+      yield cacheMovies(receivedMovies);
 
-      return request;
+      return { movies: receivedMovies };
     }
 
-    return {
-      data: {
-        results: availableMoviesTmp,
-      },
-    };
+    return { movies: availableMoviesTmp };
   } catch (err) {
     console.error(err.message);
     return null;
@@ -60,7 +58,7 @@ function* handleMovieRequest({ data: { moviesPage, availableMovies } }) {
   const result = yield call(getMovies, moviesPage);
   yield put({
     type: actionsConst.SAVE_MOVIES,
-    movies: (result.data && result.data.results) || result.movies,
+    movies: result.movies,
     moviesPage: result.moviesPage || moviesPage,
   });
 }
