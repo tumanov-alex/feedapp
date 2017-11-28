@@ -28,6 +28,13 @@ class Feed extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.feed.movies.length > this.props.feed.movies.length;
   }
+  
+  renderItem = data => (
+    <MovieItem
+      title={data.item.title}
+      overview={data.item.overview}
+      poster={data.item.poster_path}
+    />)
 
   render() {
     const {
@@ -44,12 +51,7 @@ class Feed extends Component {
         {movies.length
           ? <FlatList
             data={movies}
-            renderItem={data => (
-              <MovieItem
-                title={data.item.title}
-                overview={data.item.overview}
-                poster={data.item.poster_path}
-              />)}
+            renderItem={this.renderItem}
             onEndReached={() => !isMoviesLoading && getMovies(moviesPage, movies)}
             onEndThreshold={100}
             keyExtractor={getNewKey}
