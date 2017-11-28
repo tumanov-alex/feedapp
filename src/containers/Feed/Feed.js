@@ -52,7 +52,7 @@ class Feed extends Component {
               />)}
             onEndReached={() => !isMoviesLoading && getMovies(moviesPage, movies)}
             onEndThreshold={100}
-            keyExtractor={() => getNewKey()}
+            keyExtractor={getNewKey}
           />
           : <SpinnerCenter />}
       </View>
