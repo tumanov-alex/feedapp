@@ -5,7 +5,7 @@
  * */
 
 export default {
-  // transparent
+  // limpid
   transparent: 'transparent',
 
   // white
